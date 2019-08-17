@@ -1,3 +1,4 @@
+generate_load_scripts: true
 framework: auto-detect
 
 group Main

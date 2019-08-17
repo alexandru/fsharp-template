@@ -1,7 +1,9 @@
+// The result of: paket generate-load-scripts
 #load ".paket/load/netstandard2.0/Newtonsoft.Json.fsx"
-#r "./src/Library/bin/Debug/netstandard2.0/Library.dll"
+#load "src/Library/Library.fs"
 
 open System
 open Library
 
 // ...
+printfn "%s" (getJsonNetJson "value")
