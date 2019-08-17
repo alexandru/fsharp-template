@@ -1,1 +1,1 @@
-Just a playground for playing with F#.
+My lightweight template for F# projects.
