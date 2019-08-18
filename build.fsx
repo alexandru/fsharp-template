@@ -78,7 +78,4 @@ Target.create "all" ignore
     =?> ("test", isCI)
     ==> "all"
 
-"clean"
-    ==> "test-watch"
-
 Target.runOrDefault "all"
