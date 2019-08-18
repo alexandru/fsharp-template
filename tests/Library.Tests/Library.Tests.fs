@@ -5,6 +5,9 @@ module Tests =
 
     [<Tests>]
     let tests = testList "samples" [
+        testCase "adding numbers" <| fun _ ->
+            Expect.equal (Library.addNumbers 1 2) 3 "addNumbers"
+
         testCase "universe exists (╭ರᴥ•́)" <| fun _ ->
             let subject = true
             Expect.isTrue subject "I compute, therefore I am."

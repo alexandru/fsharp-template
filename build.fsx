@@ -8,6 +8,15 @@ open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
 open Fake.Core.TargetOperators
 
+let runDotNet cmd workingDir =
+    async {
+        let result =
+            DotNet.exec (DotNet.Options.withWorkingDirectory workingDir) cmd ""
+        if result.ExitCode <> 0 then
+            failwithf "'dotnet %s' failed in %s" cmd workingDir
+    }
+
+let libraryPath = Path.getFullName "./tests/Library.Tests"
 let isCI =  Environment.environVarAsBool "CI"
 
 let isRelease (targets : Target list) =
@@ -22,13 +31,15 @@ let configuration (targets : Target list) =
     | "Release" -> DotNet.BuildConfiguration.Release
     | config -> DotNet.BuildConfiguration.Custom config
 
-Target.create "Clean" (fun _ ->
+Target.create "clean" (fun _ ->
     !! "src/**/bin"
     ++ "src/**/obj"
+    ++ "tests/**/bin"
+    ++ "tests/**/obj"
     |> Shell.cleanDirs
 )
 
-Target.create "Build" (fun ctx ->
+Target.create "build" (fun ctx ->
     !! "src/**/*.*proj"
     |> Seq.iter (DotNet.build (fun defaults ->
         { defaults with
@@ -37,7 +48,14 @@ Target.create "Build" (fun ctx ->
     ))
 )
 
-Target.create "Test" <| fun ctx ->
+Target.create "test-watch" <| fun _ ->
+    !! "tests/**/*.*proj"
+    |> Seq.map (Path.getDirectory >> runDotNet "watch test")
+    |> Async.Parallel
+    |> Async.RunSynchronously
+    |> ignore
+
+Target.create "test" <| fun ctx ->
     !! (__SOURCE_DIRECTORY__  @@ "tests/**/*.??proj")
     |> Seq.iter (fun proj ->
         DotNet.test(fun c ->
@@ -53,11 +71,14 @@ Target.create "Test" <| fun ctx ->
                         (Some(args))
                 }) proj)
 
-Target.create "All" ignore
+Target.create "all" ignore
 
-"Clean"
-    ==> "Build"
-    =?> ("Test", isCI)
-    ==> "All"
+"clean"
+    ==> "build"
+    =?> ("test", isCI)
+    ==> "all"
 
-Target.runOrDefault "All"
+"clean"
+    ==> "test-watch"
+
+Target.runOrDefault "all"
