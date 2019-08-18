@@ -8,7 +8,6 @@
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
   <ItemGroup>
-    <Compile Include="Tests.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 </Project>
