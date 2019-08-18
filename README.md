@@ -8,7 +8,25 @@ A light-weight template built from scratch, starting from:
 
 [![CircleCI](https://circleci.com/gh/alexandru/fsharp-template.svg?style=svg)](https://circleci.com/gh/alexandru/fsharp-template)
 
-## Building
+## Building and testing
+
+To build the project:
+
+```sh
+./fake.sh build
+```
+
+To test it:
+
+```sh
+./fake.sh build -t test
+```
+
+To test continuously (with a file watcher for changes):
+
+```sh
+./fake.sh build -t test-watch
+```
 
 To build self-contained deployment that has a native executable:
 
