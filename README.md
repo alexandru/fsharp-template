@@ -6,6 +6,8 @@ A light-weight template built from scratch, starting from:
 - [FAKE: getting started](https://fake.build/fake-gettingstarted.html)
 - [Getting Started with Paket](https://fsprojects.github.io/Paket/getting-started.html)
 
+[![CircleCI](https://circleci.com/gh/alexandru/fsharp-template.svg?style=svg)](https://circleci.com/gh/alexandru/fsharp-template)
+
 ## Building
 
 To build self-contained deployment that has a native executable:
