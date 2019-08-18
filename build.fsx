@@ -20,12 +20,6 @@ let configuration (targets : Target list) =
     | "Release" -> DotNet.BuildConfiguration.Release
     | config -> DotNet.BuildConfiguration.Custom config
 
-// // Default target configuration
-// let buildConfiguration =
-//     DotNet.BuildConfiguration.fromEnvironVarOrDefault
-//         "configuration"
-//         DotNet.BuildConfiguration.Release
-
 Target.create "Clean" (fun _ ->
     !! "src/**/bin"
     ++ "src/**/obj"

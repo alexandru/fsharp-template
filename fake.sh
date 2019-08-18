@@ -19,14 +19,9 @@ realpath() {
 
 TOOL_PATH=$(realpath .fake)
 FAKE="$TOOL_PATH"/fake
-PAKET="$TOOL_PATH"/paket
 
 if ! [ -e "$FAKE" ]
 then
   dotnet tool install fake-cli --tool-path "$TOOL_PATH"
-fi
-if ! [ -e "$PAKET" ]
-then
-  dotnet tool install paket --tool-path "$TOOL_PATH"
 fi
 "$FAKE" "$@"
