@@ -1,0 +1,12 @@
+group Build
+
+FSharp.Core
+
+Expecto
+Expecto.BenchmarkDotNet
+Expecto.FsCheck
+Expecto.Hopac
+
+Fake.DotNet.Cli
+Microsoft.NET.Test.Sdk
+YoloDev.Expecto.TestSdk
