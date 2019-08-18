@@ -6,6 +6,6 @@ module Main =
     open Expecto
     open Expecto.Logging
 
-    // [<EntryPoint>]
-    // let main argv =
-    //     Tests.runTestsInAssembly defaultConfig argv
+    [<EntryPoint>]
+    let main argv =
+        Tests.runTestsInAssembly defaultConfig argv
