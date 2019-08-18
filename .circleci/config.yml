@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2-sdk
+
+    steps:
+      - checkout
+      - run:
+          name: Build and Test
+          command: ./fake.sh run build.fsx
